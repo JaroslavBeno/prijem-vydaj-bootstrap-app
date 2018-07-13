@@ -54,9 +54,13 @@
         <div class="row">
             <div class="col-4">
                 <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-foto-list" data-toggle="list" href="#list-foto" role="tab" aria-controls="foto">Fotografia</a>
-                <a class="list-group-item list-group-item-action" id="list-fakPredok-list" data-toggle="list" href="#list-fakPredok" role="tab" aria-controls="fakPredok">Faktúra predná strana</a>
-                <a class="list-group-item list-group-item-action" id="list-fakZadok-list" data-toggle="list" href="#list-fakZadok" role="tab" aria-controls="fakZadok">Faktúra zadná strana</a>
+                    <a class="list-group-item list-group-item-action active" id="list-foto-list" data-toggle="list" href="#list-foto" role="tab" aria-controls="foto">Fotografia</a>
+                    <a class="list-group-item list-group-item-action" id="list-fakPredok-list" data-toggle="list" href="#list-fakPredok" role="tab" aria-controls="fakPredok">Faktúra predná strana</a>
+                    <a class="list-group-item list-group-item-action" id="list-fakZadok-list" data-toggle="list" href="#list-fakZadok" role="tab" aria-controls="fakZadok">Faktúra zadná strana</a>
+                </div>
+                <div class="btn-group mt-5" role="group" aria-label="Pridať foto - dokument">
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#addFoto">Pridať foto</button>
+                    <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#addDoc">Pridať dokument</button>
                 </div>
             </div>
             <div class="col-8">
@@ -86,6 +90,67 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addFoto" tabindex="-1" role="dialog" aria-labelledby="addFotoTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addFotoTitle">Pridaj fotku</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="foto">Fotografia</label>
+                        <input type="file" class="form-control-file" id="foto" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
+                <button type="submit" class="btn btn-primary">Ulož</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addDoc" tabindex="-1" role="dialog" aria-labelledby="addDocTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDocTitle">Pridaj dokument</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="doc">Dokument</label>
+                        <input type="file" class="form-control-file" id="doc" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
+                <button type="submit" class="btn btn-primary">Ulož</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
         
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

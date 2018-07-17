@@ -33,13 +33,13 @@
             <div class="collapse navbar-collapse" id="navigaciaId">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pridaj príjem/výdaj</a>
+                        <a class="nav-link @(functions.jeAktivna("Pridaj"))" href="~/Pridaj">Pridaj príjem/výdaj</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Prehľad</a>
+                    <li class="nav-item @(functions.jeAktivna("Prehlad"))">
+                        <a class="nav-link" href="~/Prehlad">Prehľad</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Filter</a>
+                    <li class="nav-item @(functions.jeAktivna("Filter"))">
+                      <a class="nav-link" href="~/Filter">Filter</a>
                     </li>
                 </ul>
             </div>

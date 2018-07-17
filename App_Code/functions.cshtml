@@ -1,0 +1,11 @@
+﻿@functions{
+
+     public static String jeAktivna(String stranka){
+         if(Request.Url.AbsolutePath.ToLower().EndsWith(stranka.ToLower())){
+             return "active";
+         }else{
+             return "";
+         }
+     }   
+
+}

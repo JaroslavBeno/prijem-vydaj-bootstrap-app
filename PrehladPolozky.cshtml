@@ -4,94 +4,94 @@
 
 
 <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Nové tričko</h1>
-            <p class="lead">Kúpené 14.1.2018. Potreboval som nové tričko, tak som si jedno kúpil. Zatiaľ je fajné :). </p>
-            <h4 class="text-danger">14.99 euro <span class="text-muted">(oblečenie)</span></h4>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action active" id="list-foto-list" data-toggle="list" href="#list-foto" role="tab" aria-controls="foto">Fotografia</a>
-                    <a class="list-group-item list-group-item-action" id="list-fakPredok-list" data-toggle="list" href="#list-fakPredok" role="tab" aria-controls="fakPredok">Faktúra predná strana</a>
-                    <a class="list-group-item list-group-item-action" id="list-fakZadok-list" data-toggle="list" href="#list-fakZadok" role="tab" aria-controls="fakZadok">Faktúra zadná strana</a>
-                </div>
-                <div class="btn-group mt-5" role="group" aria-label="Pridať foto - dokument">
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#addFoto">Pridať foto</button>
-                    <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#addDoc">Pridať dokument</button>
-                </div>
-            </div>
-            <div class="col-8">
-                <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-foto" role="tabpanel" aria-labelledby="list-foto-list">
-                    <img src="shirt.jpg" alt="tričko" class="img-fluid img-thumbnail" />
-                </div>
-                <div class="tab-pane fade" id="list-fakPredok" role="tabpanel" aria-labelledby="list-fakPredok-list">
-                    <p class="lead">Toto je faktura na kupu predna strana. Daj pozor uchovat kvoli reklamacii.</p>
-                    <a href="#">faktúra predná strana</a>
-                </div>
-                <div class="tab-pane fade" id="list-fakZadok" role="tabpanel" aria-labelledby="list-fakZadok-list">
-                    <p class="lead">Toto je faktura na kupu zadna strana. Daj pozor uchovat kvoli reklamacii.</p>
-                    <a href="#">faktúra predná strana</a>
-                </div>
-                </div>
-            </div>
-        </div>
+        <h1 class="display-4">Nové tričko</h1>
+        <p class="lead">Kúpené 14.1.2018. Potreboval som nové tričko, tak som si jedno kúpil. Zatiaľ je fajné :). </p>
+        <h4 class="text-danger">14.99 euro <span class="text-muted">(oblečenie)</span></h4>
     </div>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="addFoto" tabindex="-1" role="dialog" aria-labelledby="addFotoTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addFotoTitle">Pridaj fotku</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-foto-list" data-toggle="list" href="#list-foto" role="tab" aria-controls="foto">Fotografia</a>
+                <a class="list-group-item list-group-item-action" id="list-fakPredok-list" data-toggle="list" href="#list-fakPredok" role="tab" aria-controls="fakPredok">Faktúra predná strana</a>
+                <a class="list-group-item list-group-item-action" id="list-fakZadok-list" data-toggle="list" href="#list-fakZadok" role="tab" aria-controls="fakZadok">Faktúra zadná strana</a>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="foto">Fotografia</label>
-                        <input type="file" class="form-control-file" id="foto" />
-                    </div>
-                </form>
+            <div class="btn-group mt-5" role="group" aria-label="Pridať foto - dokument">
+                <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#addFoto">Pridať foto</button>
+                <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#addDoc">Pridať dokument</button>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
-                <button type="submit" class="btn btn-primary">Ulož</button>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-foto" role="tabpanel" aria-labelledby="list-foto-list">
+                <img src="shirt.jpg" alt="tričko" class="img-fluid img-thumbnail" />
+            </div>
+            <div class="tab-pane fade" id="list-fakPredok" role="tabpanel" aria-labelledby="list-fakPredok-list">
+                <p class="lead">Toto je faktura na kupu predna strana. Daj pozor uchovat kvoli reklamacii.</p>
+                <a href="#">faktúra predná strana</a>
+            </div>
+            <div class="tab-pane fade" id="list-fakZadok" role="tabpanel" aria-labelledby="list-fakZadok-list">
+                <p class="lead">Toto je faktura na kupu zadna strana. Daj pozor uchovat kvoli reklamacii.</p>
+                <a href="#">faktúra predná strana</a>
             </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="addDoc" tabindex="-1" role="dialog" aria-labelledby="addDocTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addDocTitle">Pridaj dokument</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="doc">Dokument</label>
-                        <input type="file" class="form-control-file" id="doc" />
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
-                <button type="submit" class="btn btn-primary">Ulož</button>
-            </div>
-            </div>
+<!-- Modal -->
+<div class="modal fade" id="addFoto" tabindex="-1" role="dialog" aria-labelledby="addFotoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addFotoTitle">Pridaj fotku</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="foto">Fotografia</label>
+                    <input type="file" class="form-control-file" id="foto" />
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
+            <button type="submit" class="btn btn-primary">Ulož</button>
+        </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="addDoc" tabindex="-1" role="dialog" aria-labelledby="addDocTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addDocTitle">Pridaj dokument</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="doc">Dokument</label>
+                    <input type="file" class="form-control-file" id="doc" />
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
+            <button type="submit" class="btn btn-primary">Ulož</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 
 

@@ -1,0 +1,50 @@
+﻿@{
+   Layout = "~/_SiteLayout.cshtml"; 
+}
+
+
+<div class="container">
+    <h1 class="mt-4">Pridaj príjem / výdaj</h1>
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="nazov">Názov položky</label>
+                <input type="text" class="form-control" id="nazov" placeholder="Názov položky">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="cena">Cena</label>
+                <input type="text" class="form-control" id="cena" placeholder="Cena">
+            </div>
+            <div class="form-group col-md-2">
+                <label for="datum">Dátum</label>
+                <input type="date" class="form-control" id="datum" placeholder="Dátum">
+            </div>
+            </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="cena">Popis</label>
+                <textarea class="form-control" rows="5"></textarea>  
+            </div>  
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="druhPolozky">Druh položky</label>
+                <select class="form-control" id="druhPolozky">
+                    <option>Príjem</option>
+                    <option>Výdaj</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <label for="kategoria">Kategoria</label>
+                <select class="form-control" id="kategoria">
+                    <option>Oblečenie</option>
+                    <option>Výplata</option>
+                    <option>Drogeria</option>
+                    <option>Lieky</option>
+                </select>
+            </div>
+        </div>
+            
+        <button type="submit" class="btn btn-primary">Pridaj</button>
+    </form>
+</div>

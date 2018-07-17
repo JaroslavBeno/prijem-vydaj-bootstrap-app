@@ -3,106 +3,106 @@
 }
 
 <div class="container mt-5">
-        <h2>Filter</h2>
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="typ">Typ</label>
-                    <select id="typ" class="form-control">
-                        <option selected>vyber...</option>
-                        <option value="prijem">príjmy</option>
-                        <option value="vydaj">výdaje</option>
-                    </select>
-                </div>
-
-                <div class="form-group col-md-4">
-                    <label for="kategoria">Kategória</label>
-                    <select id="kategoria" class="form-control">
-                        <option selected>vyber...</option>
-                        <option value="1">trvalý príjem</option>
-                        <option value="2">trvalý výdaj</option>
-                        <option value="3">oblečenie</option>
-                        <option value="4">drogéria</option>
-                        <option value="5">iné</option>
-                    </select>
-                </div>
-                      
-                <div class="form-group col-md-3">
-                    <label for="cena">Cena</label>
-                    <select id="cena" class="form-control">
-                        <option selected>vyber...</option>
-                        <option>od najmenšej</option>
-                        <option>od najväčšej</option>
-                    </select>
-                </div>
-
-                <div class="form-group col-md-2">
-                    <label for="rok">Rok</label>
-                    <select id="rok" class="form-control">
-                        <option selected>vyber...</option>
-                        <option>2018</option>
-                        <option>2017</option>
-                        <option>2016</option>
-                    </select>
-                </div>
+    <h2>Filter</h2>
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="typ">Typ</label>
+                <select id="typ" class="form-control">
+                    <option selected>vyber...</option>
+                    <option value="prijem">príjmy</option>
+                    <option value="vydaj">výdaje</option>
+                </select>
             </div>
-            <button type="submit" class="btn btn-primary">Filtruj</button>
-        </form>
-    </div>
 
-    <div class="container mt-5">
-            <div class="row">
-                <div class="col">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">Dátum</th>
-                                <th scope="col">Položka</th>
-                                <th scope="col">Kategória</th>
-                                <th scope="col">Cena</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="table-danger">
-                                <th scope="row">1.1</th>
-                                <td><a href="#">splátka pračky</a></td>
-                                <td>úvery</td>
-                                <td class="text-danger">100</td>
-                            </tr>
-                            <tr class="table-danger">
-                                <th scope="row">14.1</th>
-                                <td><a href="#">nové tričko</a></td>
-                                <td>oblečenie</td>
-                                <td class="text-danger">14.99</td>
-                            </tr>
-                            <tr class="table-success">
-                                <th scope="row">15.1</th>
-                                <td><a href="#">Výplata</a></td>
-                                <td>pravidelné príjmy</td>
-                                <td class="text-success">690</td>
-                            </tr>
-                            <tr class="table-success">
-                                <th scope="row">15.1</th>
-                                <td><a href="#">prémia</a></td>
-                                <td>špeciálne príjmy</td>
-                                <td class="text-success">54</td>
-                            </tr>
-                            <tr class="table-success">
-                                <th scope="row">17.1</th>
-                                <td><a href="#">dar</a></td>
-                                <td>špeciálne príjmy</td>
-                                <td class="text-success">20</td>
-                            </tr>
-                            <tr class="table-danger">
-                                <th scope="row">19.1</th>
-                                <td><a href="#">dar</a></td>
-                                <td>dary</td>
-                                <td class="text-danger">50</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="form-group col-md-4">
+                <label for="kategoria">Kategória</label>
+                <select id="kategoria" class="form-control">
+                    <option selected>vyber...</option>
+                    <option value="1">trvalý príjem</option>
+                    <option value="2">trvalý výdaj</option>
+                    <option value="3">oblečenie</option>
+                    <option value="4">drogéria</option>
+                    <option value="5">iné</option>
+                </select>
+            </div>
+                      
+            <div class="form-group col-md-3">
+                <label for="cena">Cena</label>
+                <select id="cena" class="form-control">
+                    <option selected>vyber...</option>
+                    <option>od najmenšej</option>
+                    <option>od najväčšej</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="rok">Rok</label>
+                <select id="rok" class="form-control">
+                    <option selected>vyber...</option>
+                    <option>2018</option>
+                    <option>2017</option>
+                    <option>2016</option>
+                </select>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">Filtruj</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Dátum</th>
+                        <th scope="col">Položka</th>
+                        <th scope="col">Kategória</th>
+                        <th scope="col">Cena</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-danger">
+                        <th scope="row">1.1</th>
+                        <td><a href="#">splátka pračky</a></td>
+                        <td>úvery</td>
+                        <td class="text-danger">100</td>
+                    </tr>
+                    <tr class="table-danger">
+                        <th scope="row">14.1</th>
+                        <td><a href="#">nové tričko</a></td>
+                        <td>oblečenie</td>
+                        <td class="text-danger">14.99</td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="row">15.1</th>
+                        <td><a href="#">Výplata</a></td>
+                        <td>pravidelné príjmy</td>
+                        <td class="text-success">690</td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="row">15.1</th>
+                        <td><a href="#">prémia</a></td>
+                        <td>špeciálne príjmy</td>
+                        <td class="text-success">54</td>
+                    </tr>
+                    <tr class="table-success">
+                        <th scope="row">17.1</th>
+                        <td><a href="#">dar</a></td>
+                        <td>špeciálne príjmy</td>
+                        <td class="text-success">20</td>
+                    </tr>
+                    <tr class="table-danger">
+                        <th scope="row">19.1</th>
+                        <td><a href="#">dar</a></td>
+                        <td>dary</td>
+                        <td class="text-danger">50</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,46 +1,94 @@
 ﻿@{
    Layout = "~/_SiteLayout.cshtml"; 
+
+   var db = Database.Open("db");
+   var kategorie = db.Query("SELECT * FROM kategoria");
+   
+   Validation.Add("cena",
+    Validator.Required("musis zadat cenu")
+   );
+
+   Validation.RequireField("nazov","musis zadat nazov");
+   Validation.RequireField("datum","musis zadat datum");
+   Validation.RequireField("popis","musis zadat popis");
+
+   int cena = -1;
+   var kat = "";
+   var errorMsg = "";
+   bool valid = true;
+   if(IsPost){
+       cena = Request.Form["cena"].AsInt();
+       if(cena < 0){
+           errorMsg += "Cena musí byť viac ako 0.<br>";
+           valid = false;
+       }
+
+       kat = Request.Form["kategoria"];
+       if(kat.Equals("-1")){
+           errorMsg += "Musíš zadať kategóriu.<br>";
+           valid = false;
+       }
+
+       if(Validation.IsValid() && valid){
+           //todo db uloz
+       }else{
+           valid = false;
+       }
+   }
 }
 
 
 <div class="container">
     <h1 class="mt-4">Pridaj príjem / výdaj</h1>
-    <form>
+    
+    @if(!valid){
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @Html.ValidationSummary()
+            @Html.Raw(errorMsg)
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    
+    <form method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="nazov">Názov položky</label>
-                <input type="text" class="form-control" id="nazov" placeholder="Názov položky">
+                <input type="text" class="form-control" id="nazov" name="nazov" placeholder="Názov položky">
             </div>
             <div class="form-group col-md-2">
                 <label for="cena">Cena</label>
-                <input type="text" class="form-control" id="cena" placeholder="Cena">
+                <input type="text" class="form-control" id="cena" name="cena" placeholder="Cena">
+                
             </div>
             <div class="form-group col-md-2">
                 <label for="datum">Dátum</label>
-                <input type="date" class="form-control" id="datum" placeholder="Dátum">
+                <input type="date" class="form-control" id="datum" name="datum" placeholder="Dátum">
             </div>
             </div>
         <div class="form-row">
             <div class="form-group col">
-                <label for="cena">Popis</label>
-                <textarea class="form-control" rows="5"></textarea>  
+                <label for="popis">Popis</label>
+                <textarea class="form-control" rows="5" name="popis"></textarea>  
             </div>  
         </div>
         <div class="form-row">
             <div class="form-group col">
                 <label for="druhPolozky">Druh položky</label>
-                <select class="form-control" id="druhPolozky">
-                    <option>Príjem</option>
-                    <option>Výdaj</option>
+                <select class="form-control" id="druhPolozky" name="druhPolozky">
+                    <option value="prijem">Príjem</option>
+                    <option value="vydaj">Výdaj</option>
                 </select>
             </div>
             <div class="form-group col">
                 <label for="kategoria">Kategoria</label>
-                <select class="form-control" id="kategoria">
-                    <option>Oblečenie</option>
-                    <option>Výplata</option>
-                    <option>Drogeria</option>
-                    <option>Lieky</option>
+                <select class="form-control" id="kategoria" name="kategoria">
+                    <option value="-1"> --- vyber --- </option>
+                    @foreach(var kategoria in kategorie){
+                        <option value="@kategoria.id">@kategoria.kategoria</option>
+                    }
                 </select>
             </div>
         </div>

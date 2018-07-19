@@ -10,45 +10,7 @@
             <div class="card mb-3">
                 <div class="card-header bg-success text-white">Príjmy</div>
                     <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-responsive-sm">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Dátum</th>
-                                            <th scope="col">Položka</th>
-                                            <th scope="col">Kategória</th>
-                                            <th scope="col">Cena</th>
-                                            <th scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">15.1</th>
-                                            <td><a href="#">Výplata</a></td>
-                                            <td>pravidelné príjmy</td>
-                                            <td class="text-success">690</td>
-                                            <td><a href="#" class="btn btn-sm btn-primary">Upraviť <i class="far fa-edit ml-1"></i></a> <a href="#" class="text-danger" style="margin-left: 5px" title="Zmazať">
-                                                <i class="far fa-trash-alt ml-1" data-toggle="tooltip" data-placement="right" title="Zmazať"></i> </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">15.1</th>
-                                            <td><a href="#">prémia</a></td>
-                                            <td>špeciálne príjmy</td>
-                                            <td class="text-success">54</td>
-                                            <td><a href="#" class="btn btn-sm btn-primary">Upraviť <i class="far fa-edit ml-1"></i></a> <a href="#" class="text-danger" style="margin-left: 5px" title="Zmazať">
-                                                <i class="far fa-trash-alt ml-1" data-toggle="tooltip" data-placement="right" title="Zmazať"></i> </a></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">17.1</th>
-                                            <td><a href="#">dar</a></td>
-                                            <td>špeciálne príjmy</td>
-                                            <td class="text-success">20</td>
-                                            <td><a href="#" class="btn btn-sm btn-primary">Upraviť <i class="far fa-edit ml-1"></i></a> <a href="#" class="text-danger" style="margin-left: 5px" title="Zmazať">
-                                                <i class="far fa-trash-alt ml-1"  data-toggle="tooltip" data-placement="right" title="Zmazať"></i> </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        @TableHelper.vykresliTabulku("isStrippedRow","prijem")    
                     </div>
                 </div>
             </div>
@@ -62,45 +24,7 @@
             <div class="card mb-3">
                 <div class="card-header bg-danger text-white">Výdaje</div>
                     <div class="card-body">
-                            <div class="table-responsive">
-                                    <table class="table table-striped table-responsive-xs-12">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">Dátum</th>
-                                            <th scope="col">Položka</th>
-                                            <th scope="col">Kategória</th>
-                                            <th scope="col">Cena</th>
-                                            <th scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1.1</th>
-                                                <td><a href="#">splátka pračky</a></td>
-                                                <td>úvery</td>
-                                                <td class="text-danger">100</td>
-                                                <td><a href="#" class="btn btn-sm btn-primary">Upraviť <i class="far fa-edit ml-1"></i></a> <a href="#" class="text-danger" style="margin-left: 5px" title="Zmazať">
-                                                    <i class="far fa-trash-alt ml-1"  data-toggle="tooltip" data-placement="right" title="Zmazať"></i> </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">14.1</th>
-                                                <td><a href="#">nové tričko</a></td>
-                                                <td>oblečenie</td>
-                                                <td class="text-danger">14.99</td>
-                                                <td><a href="#" class="btn btn-sm btn-primary">Upraviť <i class="far fa-edit ml-1"></i></a> <a href="#" class="text-danger" style="margin-left: 5px" title="Zmazať">
-                                                    <i class="far fa-trash-alt ml-1"  data-toggle="tooltip" data-placement="right" title="Zmazať"></i> </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">19.1</th>
-                                                <td><a href="#">dar</a></td>
-                                                <td>dary</td>
-                                                <td class="text-danger">50</td>
-                                                <td><a href="#" class="btn btn-sm btn-primary">Upraviť <i class="far fa-edit ml-1"></i></a> <a href="#" class="text-danger" style="margin-left: 5px" title="Zmazať">
-                                                    <i class="far fa-trash-alt ml-1"  data-toggle="tooltip" data-placement="right" title="Zmazať"></i> </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
+                        @TableHelper.vykresliTabulku("isStrippedRow","vydaj") 
                     </div>
                 </div>
             </div>
@@ -114,56 +38,7 @@
             <div class="card mb-3">
                 <div class="card-header bg-info text-white ">Príjmy / Výdaje</div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Dátum</th>
-                            <th scope="col">Položka</th>
-                            <th scope="col">Kategória</th>
-                            <th scope="col">Cena</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="table-danger">
-                            <th scope="row">1.1</th>
-                            <td><a href="#">splátka pračky</a></td>
-                            <td>úvery</td>
-                            <td class="text-danger">100</td>
-                        </tr>
-                        <tr class="table-danger">
-                            <th scope="row">14.1</th>
-                            <td><a href="#">nové tričko</a></td>
-                            <td>oblečenie</td>
-                            <td class="text-danger">14.99</td>
-                        </tr>
-                        <tr class="table-success">
-                            <th scope="row">15.1</th>
-                            <td><a href="#">Výplata</a></td>
-                            <td>pravidelné príjmy</td>
-                            <td class="text-success">690</td>
-                        </tr>
-                        <tr class="table-success">
-                            <th scope="row">15.1</th>
-                            <td><a href="#">prémia</a></td>
-                            <td>špeciálne príjmy</td>
-                            <td class="text-success">54</td>
-                        </tr>
-                        <tr class="table-success">
-                            <th scope="row">17.1</th>
-                            <td><a href="#">dar</a></td>
-                            <td>špeciálne príjmy</td>
-                            <td class="text-success">20</td>
-                        </tr>
-                        <tr class="table-danger">
-                            <th scope="row">19.1</th>
-                            <td><a href="#">dar</a></td>
-                            <td>dary</td>
-                            <td class="text-danger">50</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </div>
+                    @TableHelper.vykresliTabulku("isStrippedRow","");
                 </div>
             </div>
         </div>

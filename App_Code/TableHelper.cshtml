@@ -1,0 +1,71 @@
+﻿@helper vykresliTabulku(String option, String tableType){
+   var db = Database.Open("db");
+   dynamic polozky = null;
+   
+   if("vydaj".Equals(tableType)){
+        polozky = db.Query(@"SELECT * FROM prijem_vydaj p inner join kategoria k on p.kategoria_id = k.id WHERE druh_polozky = 'vydaj' ");
+   }else if("prijem".Equals(tableType)){
+        polozky = db.Query(@"SELECT * FROM prijem_vydaj p inner join kategoria k on p.kategoria_id = k.id WHERE druh_polozky = 'prijem' ");
+   }else {
+        polozky = db.Query(@"SELECT * FROM prijem_vydaj p inner join kategoria k on p.kategoria_id = k.id");
+   }
+
+    bool isColoredRow = false;
+    bool isStrippedRow = false;
+
+    if("isColoredRow".Equals(option)){
+        isColoredRow = true;
+    }else if("isStrippedRow".Equals(option)){
+        isStrippedRow = true;
+    }
+
+
+    <div class="table-responsive">
+        <table class="table @if(isStrippedRow){<text>table-striped</text>}">
+            <thead>
+            <tr>
+                <th scope="col">Dátum</th>
+                <th scope="col">Položka</th>
+                <th scope="col">Kategória</th>
+                <th scope="col">Cena</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach(var p in polozky){
+                var textClass = "";
+                var trClass = "";
+                
+                if(isColoredRow){
+                    if(p.druh_polozky.Equals("prijem")){
+                        trClass = "table-success";
+                    }else if(p.druh_polozky.Equals("vydaj")){
+                        trClass = "table-danger";
+                    }
+                }
+                
+                if(p.druh_polozky.Equals("prijem")){
+                    textClass = "text-success";
+                }else if(p.druh_polozky.Equals("vydaj")){
+                    textClass = "text-danger";
+                }
+
+                <tr class="@trClass">
+                    <th scope="row">@p.datum.ToString("dd/MM/yyyy")</th>
+                    <td><a href="~/PrehladPolozky/@p.id">@p.nazov_polozky</a></td>
+                    <td>@p.kategoria</td>
+                    <td class="@textClass">@p.cena</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary">Upraviť <i class="far fa-edit ml-1"></i></a> 
+                        <a href="#" class="text-danger" style="margin-left: 5px" title="Zmazať">
+                            <i class="far fa-trash-alt ml-1" data-toggle="tooltip" data-placement="right" title="Zmazať"></i> 
+                        </a>
+                    </td>
+                                        
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

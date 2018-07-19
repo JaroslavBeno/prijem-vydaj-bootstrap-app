@@ -10,7 +10,7 @@
             <div class="card mb-3">
                 <div class="card-header bg-success text-white">Príjmy</div>
                     <div class="card-body">
-                        @TableHelper.vykresliTabulku("isStrippedRow","prijem")    
+                        @TableHelper.vykresliTabulku("isStrippedRow","prijem",null)    
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="card mb-3">
                 <div class="card-header bg-danger text-white">Výdaje</div>
                     <div class="card-body">
-                        @TableHelper.vykresliTabulku("isStrippedRow","vydaj") 
+                        @TableHelper.vykresliTabulku("isStrippedRow","vydaj",null) 
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="card mb-3">
                 <div class="card-header bg-info text-white ">Príjmy / Výdaje</div>
                 <div class="card-body">
-                    @TableHelper.vykresliTabulku("isStrippedRow","");
+                    @TableHelper.vykresliTabulku("isStrippedRow","",null)
                 </div>
             </div>
         </div>

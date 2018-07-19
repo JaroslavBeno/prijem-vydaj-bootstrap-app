@@ -1,13 +1,28 @@
-﻿@helper vykresliTabulku(String option, String tableType){
+﻿@helper vykresliTabulku(String option, String tableType, Dictionary<string, string> filter){
    var db = Database.Open("db");
    dynamic polozky = null;
    
+   var baseQuery = "SELECT * FROM prijem_vydaj p inner join kategoria k on p.kategoria_id = k.id";
+
    if("vydaj".Equals(tableType)){
-        polozky = db.Query(@"SELECT * FROM prijem_vydaj p inner join kategoria k on p.kategoria_id = k.id WHERE druh_polozky = 'vydaj' ");
+        polozky = db.Query(baseQuery+" WHERE druh_polozky = 'vydaj' ");
    }else if("prijem".Equals(tableType)){
-        polozky = db.Query(@"SELECT * FROM prijem_vydaj p inner join kategoria k on p.kategoria_id = k.id WHERE druh_polozky = 'prijem' ");
+        polozky = db.Query(baseQuery+" WHERE druh_polozky = 'prijem' ");
    }else {
-        polozky = db.Query(@"SELECT * FROM prijem_vydaj p inner join kategoria k on p.kategoria_id = k.id");
+       if(filter!=null && filter.Count == 4){
+           polozky = db.Query(baseQuery+@" WHERE druh_polozky like @0 
+           AND kategoria like @1 
+           AND cena like @2 
+           AND datum like @3", 
+           "%"+filter["druh_polozky"]+"%", 
+           "%"+filter["kategoria"]+"%", 
+           "%"+filter["cena"]+"%", 
+           "%"+filter["datum"]+"%");
+
+       }else{
+           polozky = db.Query(baseQuery);
+       }
+        
    }
 
     bool isColoredRow = false;

@@ -1,17 +1,35 @@
 ﻿@{
     Layout = "~/_SiteLayout.cshtml";
 
+    Dictionary<string, string> filter = null;
+
+    var druh_polozky = Request.QueryString["typ"];
+    var kategoria =  Request.QueryString["kategoria"];
+
+
+
+    var cena = Request.QueryString["cena"];
+    var datum = Request.QueryString["rok"];
+
+    var db = Database.Open("db");
+
+    var kategorie = db.Query("SELECT kategoria FROM kategoria");
     
+    filter = new Dictionary<string, string>();
+    filter.Add("druh_polozky",druh_polozky);
+    filter.Add("kategoria",kategoria);
+    filter.Add("cena",cena);
+    filter.Add("datum",datum);
 
 }
-@RenderPage("_TablePoloziek.cshtml", new {option = "isStrippedRow", tableType = "prijem"})
+
 <div class="container mt-5">
     <h2>Filter</h2>
-    <form>
+    <form method="get">
         <div class="form-row">
             <div class="form-group col-md-3">
                 <label for="typ">Typ</label>
-                <select id="typ" class="form-control">
+                <select id="typ" name="typ" class="form-control">
                     <option selected>vyber...</option>
                     <option value="prijem">príjmy</option>
                     <option value="vydaj">výdaje</option>
@@ -20,32 +38,26 @@
 
             <div class="form-group col-md-4">
                 <label for="kategoria">Kategória</label>
-                <select id="kategoria" class="form-control">
-                    <option selected>vyber...</option>
-                    <option value="1">trvalý príjem</option>
-                    <option value="2">trvalý výdaj</option>
-                    <option value="3">oblečenie</option>
-                    <option value="4">drogéria</option>
-                    <option value="5">iné</option>
+                <select id="kategoria" name="kategoria" class="form-control">
+                    <option value="" selected>vyber...</option>
+                    @foreach(var k in kategorie){
+                        <option value="@k.kategoria">@k.kategoria</option>
+                    }
                 </select>
             </div>
                       
             <div class="form-group col-md-3">
                 <label for="cena">Cena</label>
-                <select id="cena" class="form-control">
-                    <option selected>vyber...</option>
-                    <option>od najmenšej</option>
-                    <option>od najväčšej</option>
-                </select>
+                <input type="text" id="cena" name="cena" class="form-control" placeholder="cena" />
             </div>
 
             <div class="form-group col-md-2">
                 <label for="rok">Rok</label>
-                <select id="rok" class="form-control">
-                    <option selected>vyber...</option>
-                    <option>2018</option>
-                    <option>2017</option>
-                    <option>2016</option>
+                <select id="rok" name="rok" class="form-control">
+                    <option value="" selected>vyber...</option>
+                    @for(int i = 0; i<30; i++){
+                        <option value="@(2010+i)">@(2010+i)</option>
+                    }
                 </select>
             </div>
         </div>
@@ -56,7 +68,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col">
-            @TableHelper.vykresliTabulku("isColoredRow","")
+            @TableHelper.vykresliTabulku("isColoredRow","",filter)
         </div>
     </div>
 </div>

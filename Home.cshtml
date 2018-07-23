@@ -1,5 +1,38 @@
 ﻿@{
    Layout = "~/_SiteLayout.cshtml"; 
+
+   var db = Database.Open("db");
+   var vydaje = db.QueryValue("select sum(cena) from prijem_vydaj where druh_polozky = 'vydaj';");
+   var prijmy = db.QueryValue("select sum(cena) from prijem_vydaj where druh_polozky = 'prijem';");
+
+   var datum = DateTime.Now;
+   var zaciatokMesiaca = new DateTime(datum.Year, datum.Month, 1);
+   var pocetDniMesiaca = DateTime.DaysInMonth(datum.Year, datum.Month);
+   var koniecMeisaca = new DateTime(datum.Year,datum.Month, pocetDniMesiaca);
+
+
+   var tentoMesiacPrijem = db.QueryValue(@"select sum(cena) from prijem_vydaj where druh_polozky = 'prijem' 
+                            and datum between @0 and @1;", zaciatokMesiaca, koniecMeisaca);
+   var tentoMesiacVydaj = db.QueryValue(@"select sum(cena) from prijem_vydaj where druh_polozky = 'vydaj' 
+                            and datum between @0 and @1;", zaciatokMesiaca, koniecMeisaca);
+
+    var tentoMesiacDataPrijem = db.Query(@"select * from prijem_vydaj where druh_polozky = 'prijem' 
+                            and datum between @0 and @1;", zaciatokMesiaca, koniecMeisaca);
+    var tentoMesiacDataVydaj = db.Query(@"select * from prijem_vydaj where druh_polozky = 'vydaj' 
+                            and datum between @0 and @1;", zaciatokMesiaca, koniecMeisaca);
+
+    var minulyMesiacZaciatok = zaciatokMesiaca.AddMonths(-1);
+    var minulyMesiacPcetDni = DateTime.DaysInMonth(minulyMesiacZaciatok.Year, minulyMesiacZaciatok.Month);
+    var koniecMinulehoMesiaca = new DateTime(minulyMesiacZaciatok.Year,minulyMesiacZaciatok.Month, minulyMesiacPcetDni);
+
+
+    var minulyMesiacPrijem = db.QueryValue(@"select sum(cena) from prijem_vydaj where druh_polozky = 'prijem' 
+                            and datum between @0 and @1;", minulyMesiacZaciatok, koniecMinulehoMesiaca);
+    var minulyMesiacVydaj = db.QueryValue(@"select sum(cena) from prijem_vydaj where druh_polozky = 'vydaj' 
+                            and datum between @0 and @1;", minulyMesiacZaciatok, koniecMinulehoMesiaca);
+
+
+    var naposledyPridane = db.Query("select top 10 * from prijem_vydaj order by datum desc;");
 }
 
 
@@ -7,8 +40,8 @@
     <h2>Celkové príjmy - výdaje</h2>
     <div class="row text-center">
         <div class="col headline-size">
-            <span class="badge badge-pill badge-success">20000</span> -
-            <span class="badge badge-pill badge-danger">22000</span>
+            <span class="badge badge-pill badge-success">@prijmy</span> -
+            <span class="badge badge-pill badge-danger">@vydaje</span>
         </div>
     </div>
 </div>
@@ -17,11 +50,13 @@
     <h1>Tento mesiac</h1>
     <div class="row">
         <div class="col">
-            <p>príjem: <span class="text-success">1100</span></p>
-            <p>výdaj: <span class="text-danger">650</span></p>
+            <p>príjem: <span class="text-success">@tentoMesiacPrijem</span></p>
+            <p>výdaj: <span class="text-danger">@tentoMesiacVydaj</span></p>
         </div>
-        <div class="col"><canvas id="myChart" width="100" height="100"></canvas></div>
-        <div class="col"><canvas id="myChart2" width="100" height="100"></canvas></div>
+
+
+        @GrafyHelper.mojGraf(tentoMesiacDataPrijem, "prijem", "graf1")
+        @GrafyHelper.mojGraf(tentoMesiacDataVydaj, "vydaj", "graf2")
     </div>
 </div>
 
@@ -29,11 +64,12 @@
     <h1>Minulý mesiac</h1>
     <div class="row">
         <div class="col-sm-3">
-            <p>príjem: <span class="text-success">1100</span></p>
-            <p>výdaj: <span class="text-danger">650</span></p>
+            <p>príjem: <span class="text-success">@minulyMesiacPrijem</span></p>
+            <p>výdaj: <span class="text-danger">@minulyMesiacVydaj</span></p>
         </div>
-        <div class="col-md-4"><canvas id="myChart3" width="100" height="100"></canvas></div>
-        <div class="col-md-4"><canvas id="myChart4" width="100" height="100"></canvas></div>
+
+        @GrafyHelper.mojGraf(tentoMesiacDataPrijem, "prijem", "graf3")
+        @GrafyHelper.mojGraf(tentoMesiacDataVydaj, "vydaj", "graf4")
     </div>
 </div>
 
@@ -42,19 +78,29 @@
     <div class="row">
         <div class="col">
             <dl>
-                <dt><a href="#">Prídavky</a></dt>
-                <dd>Pravidelný prídavok na dieťa. <span class="badge badge-success">23 euro</span></dd>
-                    
-                <dt><a href="#">Nové topánky</a></dt>
-                <dd>Potreboval som nové topánky. Lacnejšie nemali. <span class="badge badge-danger">50 euro</span></dd>
-                    
-                <dt><a href="#">Potraviny</a></dt>
-                <dd><span class="badge badge-danger">91 euro</span></dd>
-            </dl>
+                @foreach(var polozka in naposledyPridane){
+
+                    var clazz = "badge-success";
+                    if("vydaj".Equals(polozka.druh_polozky)){
+                        clazz = "badge-danger";
+                    }
+                    <dt><a href="~/PrehladPolozky/@polozka.id">@polozka.nazov_polozky</a></dt>
+                    <dd>@polozka.popis <span class="badge @clazz">@polozka.cena euro</span></dd>
+                }
+           </dl>
         </div>  
     </div>
 </div>
 
 <div class="container text-center mt-5">
-    <a href="#" class="btn btn-lg btn-primary">Prehľad</a>
+    <a href="~/Prehlad" class="btn btn-lg btn-primary">Prehľad</a>
 </div>
+
+<script>
+    window.onload = function(){
+        @ScriptHelper.mojScript(tentoMesiacDataPrijem, "prijem", "graf1")
+        @ScriptHelper.mojScript(tentoMesiacDataVydaj, "vydaj", "graf2")
+        @ScriptHelper.mojScript(tentoMesiacDataPrijem, "prijem", "graf3")
+        @ScriptHelper.mojScript(tentoMesiacDataVydaj, "vydaj", "graf4")
+    }
+</script>

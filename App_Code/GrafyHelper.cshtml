@@ -1,0 +1,13 @@
+﻿@helper mojGraf(IEnumerable<object> data, String typ, String id){
+   
+   var label = "";
+   if("prijem".Equals(typ)){
+       label = "Príjem";
+   } else {
+       label = "Výdaj";
+   }
+
+    string[] datumy = new string[data.Count()];
+
+    <div class="col-md-4"><canvas id="@id" width="100" height="100"></canvas></div>
+}

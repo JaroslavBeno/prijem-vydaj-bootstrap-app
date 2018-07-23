@@ -1,0 +1,70 @@
+﻿@helper mojScript(IEnumerable<dynamic> data, String typ, String id){
+   
+   var label = "";
+   if("prijem".Equals(typ)){
+       label = "Príjem";
+   } else {
+       label = "Výdaj";
+   }
+
+   
+    <text>
+     var ctx@(id) = document.getElementById("@id").getContext('2d');
+    var myChart@(id) = new Chart(ctx@(id), {
+        type: 'bar',
+        data: {
+labels:[
+@foreach(var d in data){
+    <text>'@(d.datum.ToString("dd.MM.yyyy"))',</text>
+}
+
+],
+            datasets: [{
+                label: ["@Html.Raw(label)"],
+                data: [10,50,60,10,0,14.5,10,0,50,60,10,14.5],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(75, 192, 192, 0.2)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+    </text>
+}

@@ -31,6 +31,11 @@
     var minulyMesiacVydaj = db.QueryValue(@"select sum(cena) from prijem_vydaj where druh_polozky = 'vydaj' 
                             and datum between @0 and @1;", minulyMesiacZaciatok, koniecMinulehoMesiaca);
 
+    var minulyMesiacPrijemData = db.Query(@"select * from prijem_vydaj where druh_polozky = 'prijem' 
+                            and datum between @0 and @1;", minulyMesiacZaciatok, koniecMinulehoMesiaca);
+    var minulyMesiacVydajData = db.Query(@"select * from prijem_vydaj where druh_polozky = 'vydaj' 
+                            and datum between @0 and @1;", minulyMesiacZaciatok, koniecMinulehoMesiaca);
+
 
     var naposledyPridane = db.Query("select top 10 * from prijem_vydaj order by datum desc;");
 }
@@ -68,8 +73,8 @@
             <p>výdaj: <span class="text-danger">@minulyMesiacVydaj</span></p>
         </div>
 
-        @GrafyHelper.mojGraf(tentoMesiacDataPrijem, "prijem", "graf3")
-        @GrafyHelper.mojGraf(tentoMesiacDataVydaj, "vydaj", "graf4")
+        @GrafyHelper.mojGraf(minulyMesiacPrijemData, "prijem", "graf3")
+        @GrafyHelper.mojGraf(minulyMesiacVydajData, "vydaj", "graf4")
     </div>
 </div>
 
@@ -100,7 +105,7 @@
     window.onload = function(){
         @ScriptHelper.mojScript(tentoMesiacDataPrijem, "prijem", "graf1")
         @ScriptHelper.mojScript(tentoMesiacDataVydaj, "vydaj", "graf2")
-        @ScriptHelper.mojScript(tentoMesiacDataPrijem, "prijem", "graf3")
-        @ScriptHelper.mojScript(tentoMesiacDataVydaj, "vydaj", "graf4")
+        @ScriptHelper.mojScript(minulyMesiacPrijemData, "prijem", "graf3")
+        @ScriptHelper.mojScript(minulyMesiacVydajData, "vydaj", "graf4")
     }
 </script>

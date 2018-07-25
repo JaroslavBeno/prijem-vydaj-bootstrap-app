@@ -29629,3 +29629,4 @@ PrijemVydajAngularApp/node_modules/zone.js/LICENSE.wrapped
 PrijemVydajAngularApp/node_modules/zone.js/package.json
 PrijemVydajAngularApp/node_modules/zone.js/README.md
 .vs
+.vscode/*

@@ -13,45 +13,32 @@
     var myChart@(id) = new Chart(ctx@(id), {
         type: 'bar',
         data: {
-labels:[
-@foreach(var d in data){
-    <text>'@(d.datum.ToString("dd.MM.yyyy"))',</text>
-}
-
-],
+            labels:[
+                @foreach(var d in data){
+                    <text>'@(d.datum.ToString("dd.MM.yyyy"))',</text>
+                }
+            ],
             datasets: [{
                 label: ["@Html.Raw(label)"],
-                data: [10,50,60,10,0,14.5,10,0,50,60,10,14.5],
+                data: [@foreach(var d in data){<text>@(d.cena),</text>}],
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                
+                    @foreach(var d in data){
+                        if(typ.Equals("vydaj")){
+                            <text>'rgba(192, 57, 43,0.2)',</text>
+                        }else{
+                            <text>'rgba(39, 174, 96, 0.2)',</text>
+                        }
+                        
+                    }                
                 ],
                 borderColor: [
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
+                    @foreach(var d in data){
+                        if(typ.Equals("vydaj")){
+                            <text>'rgba(192, 57, 43,1.0)',</text>
+                        }else{
+                            <text>'rgba(39, 174, 96, 1.0)',</text>
+                        }
+                    } 
                 ],
                 borderWidth: 1
             }]

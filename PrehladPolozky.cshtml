@@ -1,13 +1,25 @@
 ﻿@{
     Layout = "~/_SiteLayout.cshtml";
+
+    var db = Database.Open("db");
+    var id = UrlData[0];
+
+    if (id == null || id.IsEmpty())
+    {
+        Response.Redirect("Home.cshtml");
+    }
+
+    var polozka = db.QuerySingle(@"SELECT * FROM prijem_vydaj p 
+                        inner join kategoria k on p.kategoria_id = k.id 
+                        where p.id = @0", id);
 }
 
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-4">Nové tričko</h1>
-        <p class="lead">Kúpené 14.1.2018. Potreboval som nové tričko, tak som si jedno kúpil. Zatiaľ je fajné :). </p>
-        <h4 class="text-danger">14.99 euro <span class="text-muted">(oblečenie)</span></h4>
+        <h1 class="display-4">@polozka.nazov_polozky</h1>
+        <p class="lead">Dňa @(polozka.datum.ToString("dd.MM.yyyy")). @polozka.popis </p>
+        <h4 class="text-danger">@polozka.cena euro <span class="text-muted">@polozka.kategoria</span></h4>
     </div>
 </div>
 

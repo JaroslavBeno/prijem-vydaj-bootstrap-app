@@ -12,6 +12,38 @@
     var polozka = db.QuerySingle(@"SELECT * FROM prijem_vydaj p 
                         inner join kategoria k on p.kategoria_id = k.id 
                         where p.id = @0", id);
+
+    var fotkyPolozky = db.Query(@"SELECT * FROM Fotky f 
+                        INNER JOIN prijem_vydaj p ON f.PolozkaId = p.id where p.id = @0",id);
+
+    WebImage photo = null;
+    var nazov = "";
+    var path = "";
+    var pathThmubs = "";
+
+    if (IsPost)
+    {
+        photo = WebImage.GetImageFromRequest("foto");
+        if (photo != null)
+        {
+            nazov = DateTime.Now.Year+"_"+Guid.NewGuid().ToString()+"_"+Path.GetFileName(photo.FileName);
+            path = @"images\"+nazov;
+
+            photo.Save(@"~\"+path);
+
+            pathThmubs = @"images\thumbs\" + nazov;
+            photo.Resize(width: 200, height: 200, preserveAspectRatio: true, preventEnlarge: true)
+                .Crop(1,1);
+            photo.Save(@"~\" + pathThmubs);
+
+            db.Execute(@"INSERT INTO [Fotky]
+           ([Path]
+           ,[PathThumbs]
+           ,[PolozkaId], [Popis]) VALUES (@0,@1,@2,@3)",path,pathThmubs,id, Request.Form["text"]);
+        }
+
+        Response.Redirect("~/PrehladPolozky/" + id);
+    }
 }
 
 
@@ -27,7 +59,22 @@
     <div class="row">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-foto-list" data-toggle="list" href="#list-foto" role="tab" aria-controls="foto">Fotografia</a>
+
+                @{ 
+                    var isFirst = true;
+                }
+                @foreach (var f in fotkyPolozky)
+                {
+                    <a class="list-group-item list-group-item-action @(isFirst?"active":"") " id="list-foto-list@(f.id)" data-toggle="list" href="#list-foto@(f.id)" role="tab" aria-controls="foto">
+                        @f.Popis
+                    </a>
+                    if (isFirst)
+                    {
+                        isFirst = false;
+                    }
+                }
+
+
                 <a class="list-group-item list-group-item-action" id="list-fakPredok-list" data-toggle="list" href="#list-fakPredok" role="tab" aria-controls="fakPredok">Faktúra predná strana</a>
                 <a class="list-group-item list-group-item-action" id="list-fakZadok-list" data-toggle="list" href="#list-fakZadok" role="tab" aria-controls="fakZadok">Faktúra zadná strana</a>
             </div>
@@ -38,17 +85,24 @@
         </div>
         <div class="col-8">
             <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="list-foto" role="tabpanel" aria-labelledby="list-foto-list">
-                <img src="shirt.jpg" alt="tričko" class="img-fluid img-thumbnail" />
-            </div>
-            <div class="tab-pane fade" id="list-fakPredok" role="tabpanel" aria-labelledby="list-fakPredok-list">
-                <p class="lead">Toto je faktura na kupu predna strana. Daj pozor uchovat kvoli reklamacii.</p>
-                <a href="#">faktúra predná strana</a>
-            </div>
-            <div class="tab-pane fade" id="list-fakZadok" role="tabpanel" aria-labelledby="list-fakZadok-list">
-                <p class="lead">Toto je faktura na kupu zadna strana. Daj pozor uchovat kvoli reklamacii.</p>
-                <a href="#">faktúra predná strana</a>
-            </div>
+
+                @foreach (var f in fotkyPolozky)
+                {
+                    <div class="tab-pane fade show active" id="list-foto@(f.id)" role="tabpanel" aria-labelledby="list-foto-list@(f.id)">
+                        <img src="../@(f.Path)" alt="tričko" class="img-fluid img-thumbnail" />
+                    </div>
+                }
+
+
+                <div class="tab-pane fade" id="list-fakPredok" role="tabpanel" aria-labelledby="list-fakPredok-list">
+                    <p class="lead">Toto je faktura na kupu predna strana. Daj pozor uchovat kvoli reklamacii.</p>
+                    <a href="#">faktúra predná strana</a>
+                </div>
+
+                <div class="tab-pane fade" id="list-fakZadok" role="tabpanel" aria-labelledby="list-fakZadok-list">
+                    <p class="lead">Toto je faktura na kupu zadna strana. Daj pozor uchovat kvoli reklamacii.</p>
+                    <a href="#">faktúra predná strana</a>
+                </div>
             </div>
         </div>
     </div>
@@ -64,18 +118,20 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <form>
+        <form method="post" enctype="multipart/form-data">
+            <div class="modal-body">
                 <div class="form-group">
                     <label for="foto">Fotografia</label>
-                    <input type="file" class="form-control-file" id="foto" />
+                    <input type="file" class="form-control-file" id="foto" name="foto" />
+                    <label for="text">Popisok</label>
+                    <input type="text" class="form-control" id="text" name="text" />
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
-            <button type="submit" class="btn btn-primary">Ulož</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
+                <button type="submit" class="btn btn-primary">Ulož</button>
+            </div>
+        </form>
         </div>
     </div>
 </div>
@@ -83,24 +139,28 @@
 <div class="modal fade" id="addDoc" tabindex="-1" role="dialog" aria-labelledby="addDocTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="addDocTitle">Pridaj dokument</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDocTitle">Pridaj dokument</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <form>
-                <div class="form-group">
-                    <label for="doc">Dokument</label>
-                    <input type="file" class="form-control-file" id="doc" />
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="doc">Dokument</label>
+                        <input type="file" class="form-control-file" id="doc" />
+                        <label for="text">Popisok</label>
+                        <input type="text" class="form-control" id="text" name="text" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
+                    <button type="submit" class="btn btn-primary">Ulož</button>
                 </div>
             </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavrieť okno</button>
-            <button type="submit" class="btn btn-primary">Ulož</button>
-        </div>
         </div>
     </div>
 </div>

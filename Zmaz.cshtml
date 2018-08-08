@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "_SiteLayout.cshtml";
+    var id = -1;
+
+
+    if (!Int32.TryParse(Request.QueryString["id"], out id))
+    {
+        Response.Redirect("~/Error?msg=dfsdf");
+    }
+
+    var msg = "";
+    var db = Database.Open("db");
+    if(db.Execute("DELETE FROM prijem_vydaj WHERE id = @0", id) > 0)
+    {
+        msg = "podarilo sa zmazat";
+    }
+
+}
+
+<div class="container">
+    <h2 class="text-success">@msg</h2>
+</div>

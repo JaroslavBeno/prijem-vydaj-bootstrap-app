@@ -1,3 +1,5 @@
 PrijemVydajAngularApp/node_modules
 .vs/
 .vscode/
+files/*
+images/*

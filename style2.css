@@ -1,0 +1,12 @@
+.navbar{
+    background-color: #e9ecef;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.nav-scroll-style{
+    background-color: white;
+    border-bottom: 1px solid #000;
+    transition: 0.3s all;
+}
+

@@ -10,3 +10,28 @@
     transition: 0.3s all;
 }
 
+
+
+section{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+#jumbotron{
+    background-color: #e9ecef;
+}
+
+
+
+.jumbotron{
+    background-color: transparent;
+}
+
+
+@media (min-width: 1200px) {
+    .image{
+        background-image: url('https://www.freshbooks.com/wp-content/uploads/2018/02/home-computer-hero_opt@2x.jpg');
+        background-position: right center;
+        background-size: cover;
+    }
+}

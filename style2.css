@@ -51,3 +51,23 @@ section{
 .i3{
     color: #9b59b6;
 }
+
+#carousel{
+    background-color: #34495e;
+}
+
+#carousel .carousel-item{
+    height: 400px;
+}
+
+#ceny .card-header{
+    font-size: 1.5rem;
+}
+
+#ceny .card-header#best{
+    font-size: 1.8rem;
+}
+
+[data-toggle="collapse"]{
+    cursor: pointer;
+}

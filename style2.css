@@ -71,3 +71,19 @@ section{
 [data-toggle="collapse"]{
     cursor: pointer;
 }
+
+#footerList a{
+    color: #929292
+}
+
+#footerlist h4{
+    padding-bottom: 0.5rem;
+}
+
+#footerList{
+    line-height: 2rem;
+}
+
+#footer{
+    background-color: #e9ecef;
+}

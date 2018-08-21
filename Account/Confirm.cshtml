@@ -1,3 +1,29 @@
 ﻿@{
-    
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Potvrdenie emailu";
+    string message = "";
+
+    var token = Request["token"];
+
+    WebSecurity.Logout();
+
+    if (!token.IsEmpty())
+    {
+        if (WebSecurity.ConfirmAccount(token))
+        {
+            message = "Registrácia úspešná. Prosím prihláste sa.";
+        }
+        else
+        {
+            message = "Nepodarilo sa potvrdiť účet.";
+        }
+    }
+
 }
+
+@if (!message.IsEmpty())
+{
+    <div class="container">
+        <h2>@message</h2>
+    </div>
+} 

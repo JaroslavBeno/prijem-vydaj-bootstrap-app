@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Register";
+
+    var email = "";
+    var heslo = "";
+    var opakujHeslo = "";
+
+    Validation.RequireField("email", "Musíte zadať email");
+    Validation.RequireField("heslo", "Musíte zadať heslo");
+    Validation.Add("opakujHeslo",
+        Validator.EqualsTo("heslo", "Heslo a potvrdzujúce heslo sa musia rovnať"));
+    Validation.Add("heslo",
+        Validator.StringLength(
+            maxLength: Int32.MaxValue,
+            minLength: 8,
+            errorMessage: "Heslo musí byť dlhé minimálne 8 znakov"));
+
+    if (IsPost)
+    {
+        AntiForgery.Validate();
+        email = Request.Form["email"];
+        heslo = Request.Form["heslo"];
+        opakujHeslo = Request.Form["opakujHeslo"];
+
+        if (Validation.IsValid())
+        {
+            var db = Database.Open("db");
+            var user = db.QuerySingle(@"SELECT * FROM UserProfile
+        WHERE LOWER(Email) = LOWER(@0)", email);
+
+            if (user == null)
+            {
+                db.Execute("INSERT INTO UserProfile (Email) VALUES (@0)", email);
+
+                try
+                {
+                    bool pozadujemEmailPotvrdenie = !WebMail.SmtpServer.IsEmpty();
+                    var token = WebSecurity.CreateAccount(email, heslo, pozadujemEmailPotvrdenie);
+
+                    if (pozadujemEmailPotvrdenie)
+                    {
+                        var hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
+                        var potvrdzujuceUrl = hostUrl +
+                            VirtualPathUtility.ToAbsolute("~/Account/Confirm?token=" + HttpUtility.UrlEncode(token));
+
+                        WebMail.Send(
+                            to: email,
+                            subject: "Prosím potvrďte email.",
+                            body: "Prosím navštívte <a href= '" + potvrdzujuceUrl + "'>túto stránku</a> na potvrdenie registrácie. Toto je Váš kód: " + token);
+                    }
+
+                    if (pozadujemEmailPotvrdenie)
+                    {
+                        Response.Redirect("~/Account/Thanks");
+                    }
+                    else
+                    {
+                        WebSecurity.Login(email, heslo);
+                        Response.Redirect("~/");
+                    }
+
+                }
+                catch (System.Web.Security.MembershipCreateUserException e)
+                {
+                    ModelState.AddFormError(e.Message);
+                }
+
+            }
+            else
+            {
+                ModelState.AddFormError("Email je obsadený.");
+            }
+        }
+    }
+}
+
+
+<div class="container register-form">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <a href="" class="float-right btn btn-outline-primary mt-1">Log in</a>
+                    <h4 class="card-title mt-2">Sign up</h4>
+                </header>
+                <article class="card-body">
+                    <form method="post">
+                        @AntiForgery.GetHtml()
+
+                        @if (!ModelState.IsValid)
+                        {
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            @Html.ValidationSummary("Prosím pozri si reigstračný formulár a naprav chyby.")
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        }
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input type="email" name="email" id="email" class="form-control @if (!ModelState.IsValidField("email")){<text>is-invalid</text>}" placeholder="">
+                            @if (!ModelState.IsValidField("email"))
+                            {
+                                <div class="invalid-feedback">@Html.ValidationMessage("email")</div>
+                            }    
+                            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div> <!-- form-group end.// -->
+
+
+                        <div class="form-group">
+                            <label>Zadaj heslo</label>
+                            <input class="form-control" name="heslo" id="heslo" type="password">
+                        </div> <!-- form-group end.// -->
+
+                        <div class="form-group">
+                            <label>Zopakuj heslo</label>
+                            <input class="form-control" name="opakujHeslo" id="opakujHeslo" type="password">
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+                        </div> <!-- form-group// -->
+                        <small class="text-muted">By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</small>
+                    </form>
+                </article> <!-- card-body end .// -->
+                <div class="border-top card-body text-center">Have an account? <a href="">Log In</a></div>
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->
+</div>
+<!--container end.//-->

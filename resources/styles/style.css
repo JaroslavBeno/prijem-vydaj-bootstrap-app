@@ -11,3 +11,7 @@ div.validation-summary-errors ul{
 @media (max-width: 767.98px) {
     
 }
+
+.register-form {
+    padding-top: 3rem;
+}

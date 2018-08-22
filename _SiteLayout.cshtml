@@ -37,9 +37,30 @@
                         <a class="nav-link" href="~/Prehlad">Prehľad</a>
                     </li>
                     <li class="nav-item @(functions.jeAktivna("Filter"))">
-                      <a class="nav-link" href="~/Filter">Filter</a>
+                        <a class="nav-link" href="~/Filter">Filter</a>
                     </li>
                 </ul>
+
+                @if (WebSecurity.IsAuthenticated)
+                {
+                    <span class="ml-auto">Ste prihlásený.</span>
+                    <a class="ml-1 btn btn-sm btn-outline-primary" href="~/Account/Logout.cshtml">Log out</a>
+                }
+                else
+                {
+                    <a class="ml-auto btn btn-sm btn-outline-primary" href="~/Account/Login.cshtml">Log in</a>
+                }
+
+                @if (Roles.IsUserInRole("admin"))
+                {
+                    <p>user je admin</p>
+                }
+
+                @if (Roles.IsUserInRole("moderator"))
+                {
+                    <p>user je moderator</p>
+                }
+                
             </div>
         </div>
     </nav>

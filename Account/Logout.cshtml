@@ -1,0 +1,32 @@
+﻿@{
+    WebSecurity.RequireAuthenticatedUser();
+    WebSecurity.Logout();
+    Response.Redirect("~/");
+
+
+
+
+
+    /*/zmenit heslo
+    //prihlaseny, potvrdeny
+    //formular - heslo, nove heslo
+    WebSecurity.ChangePassword(WebSecurity.CurrentUserName, heslo, noveHeslo);
+
+
+    //resetovat heslo
+    //formular - email
+    //
+    if(WebSecurity.GetUserId(email) > -1 && WebSecurity.IsConfirmed(email))
+    {
+        token = WebSecurity.GeneratePasswordResetToken(email);
+    }
+
+    //Accoutn/PasswordReset?resetToken=token
+
+
+    //PasswordReset
+    //formular - nove heslo, opakuj nove heslo, token
+    //post
+    WebSecurity.ResetPassword(token, heslo);*/
+
+}

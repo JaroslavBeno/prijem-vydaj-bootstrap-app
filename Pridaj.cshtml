@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "~/_SiteLayout.cshtml";
 
+    WebSecurity.RequireAuthenticatedUser();
+
     bool isEdit = false;
     if ( (UrlData[0] != null && !UrlData[0].IsEmpty() && UrlData[0].Equals("Edit"))
         || (Request.Form["EditBtn"]!=null && Request.Form["EditBtn"].Equals("Edit")) )
